@@ -107,19 +107,94 @@ function lanzarPeticion() {
     }
 }
 
+var direccionViento;
+
 // muestra los datos de la peticion
 function trataRespuesta() {
-    let div = document.getElementById("datosTiempo");
+    let divDatos = document.getElementById("datosTiempo");
+    let divDetalles = document.getElementById("detallesTiempo");
     if (httpRequest.readyState === XMLHttpRequest.DONE) {
         if (httpRequest.status === 200) {
             let respuesta = JSON.parse(httpRequest.responseText);
             console.log(respuesta);
             console.log("Numero de peticiones: "+contador);
             // div.innerHTML = "<table  class='border rounded'><tr class='border'><th class='border'>Temperatura</th><th class='border'>Velocidad del viento</th><th class='border'>Direccion del viento</th></tr><tr class='border'><td class='border'>"+respuesta.current_weather.temperature+" ºC</td><td class='border'>"+respuesta.current_weather.windspeed+" Km/h</td><td class='border'>"+respuesta.current_weather.winddirection+"º/360º</td></tr></table>";
-             
-            div.innerHTML = "<h4>Temperatura: "+respuesta.current_weather.temperature+" ºC</h4><br>";
-            div.innerHTML += "<h4>Velocidad del viento: "+respuesta.current_weather.windspeed+" Km/h</h4><br>";
-            div.innerHTML += "<h4>Direccion del viento: "+respuesta.current_weather.winddirection+"º/360º</h4>";
+            divDatos.innerHTML = "<h4>"+respuesta.elevation+" metros sobre el nivel del mar</h4><br>";
+            divDatos.innerHTML += "<h4><i class='fa-duotone fa-temperature-list'></i> "+respuesta.current_weather.temperature+" ºC</h4><br>";
+            if (respuesta.current_weather.winddirection >= 331 && respuesta.current_weather.winddirection <= 29) {
+                direccionViento = "Norte";
+            }
+            else if (respuesta.current_weather.winddirection >= 30 && respuesta.current_weather.winddirection <= 69) {
+                direccionViento = "Noreste";
+            }
+            else if (respuesta.current_weather.winddirection >= 70 && respuesta.current_weather.winddirection <= 109) {
+                direccionViento = "Este";
+            }
+            else if (respuesta.current_weather.winddirection >= 110 && respuesta.current_weather.winddirection <= 149) {
+                direccionViento = "Sureste";
+            }
+            else if(respuesta.current_weather.winddirection >= 150 && respuesta.current_weather.winddirection <= 210) {
+                direccionViento = "Sur";
+            }
+            else if (respuesta.current_weather.winddirection >= 211 && respuesta.current_weather.winddirection <= 240) {
+                direccionViento = "Suroeste";
+            }
+            else if (respuesta.current_weather.winddirection >= 241 && respuesta.current_weather.winddirection <= 300) {
+                direccionViento = "Oeste";
+            }
+            else if (respuesta.current_weather.winddirection >= 301 && respuesta.current_weather.winddirection <= 330) {
+                direccionViento = "Noroeste";
+            }
+
+            divDetalles.innerHTML = "<h4><i class='fa-solid fa-wind'></i> "+respuesta.current_weather.windspeed+" Km/h | Direccion: "+direccionViento+"</h4><br>";
+            // divDetalles.innerHTML += "<h4>Direccion del viento: "+respuesta.current_weather.winddirection+"º/360º</h4><br>";
+            if (respuesta.current_weather.weathercode == 0) {
+                divDatos.innerHTML += "<img src='img/soleado.svg' alt='sol' class='img-fluid'>";
+                divDatos.innerHTML += "<h4>Despejado</h4>";
+            }
+            else if (respuesta.current_weather.weathercode == 1) {
+                divDatos.innerHTML += "<img src='img/nublado.svg' alt='nubes' class='img-fluid'>";
+                divDatos.innerHTML += "<h4>Nublado</h4>";
+            }
+            else if (respuesta.current_weather.weathercode == 2) {
+                divDatos.innerHTML += "<img src='img/lluvia.png' alt='lluvia' class='img-fluid'>";
+                divDatos.innerHTML += "<h4>Lluvioso</h4>";
+            }
+            else if (respuesta.current_weather.weathercode == 3) {
+                divDatos.innerHTML += "<img src='img/nieve.png' alt='nieve' class='img-fluid'>";
+                divDatos.innerHTML += "<h4>Nevado</h4>";
+            }
+            else if (respuesta.current_weather.weathercode == 4) {
+                divDatos.innerHTML += "<img src='img/tormenta.png' alt='tormenta' class='img-fluid'>";
+                divDatos.innerHTML += "<h4>Tormentoso</h4>";
+            }
+            else if (respuesta.current_weather.weathercode == 5) {
+                divDatos.innerHTML += "<img src='img/nubladolluvia.png' alt='nubladolluvia' class='img-fluid'>";
+                divDatos.innerHTML += "<h4>Nublado con Lluvias</h4>";
+            }
+            else if (respuesta.current_weather.weathercode == 6) {
+                divDatos.innerHTML += "<img src='img/nubladonieve.png' alt='nubladonieve' class='img-fluid'>";
+                divDatos.innerHTML += "<h4>Nublado con Nevadas</h4>";
+            }
+            else if (respuesta.current_weather.weathercode == 7) {
+                divDatos.innerHTML += "<img src='img/nubladotormenta.png' alt='nubladotormenta' class='img-fluid'>";
+                divDatos.innerHTML += "<h4>Nublado con Tormentas</h4>";
+            }
+            else if (respuesta.current_weather.weathercode == 8) {
+                divDatos.innerHTML += "<img src='img/nubladotormentalluvia.png' alt='nubladotormentalluvia' class='img-fluid'>";
+                divDatos.innerHTML += "<h4>Nublado con Tormenta y Lluvias</h4>";
+            }
+            else if (respuesta.current_weather.weathercode == 9) {
+                divDatos.innerHTML += "<img src='img/nubladotormentanieve.png' alt='nubladotormentanieve' class='img-fluid'>";
+                divDatos.innerHTML += "<h4>Nublado con Tormenta y Nevadas</h4>";
+            }
+            else if (respuesta.current_weather.weathercode == 10) {
+                divDatos.innerHTML += "<img src='img/nubladotormentagranizo.png' alt='nubladotormentagranizo' class='img-fluid'>";
+                divDatos.innerHTML += "<h4>Nublado con Tormenta y Granizadas</h4>";
+            }
+            else {
+                divDatos.innerHTML += "<h4>El tiempo es desconocido</h4>";
+            }
             
             peticionEnCurso = false;
         } 
