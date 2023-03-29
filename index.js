@@ -14,13 +14,14 @@ var url;
 // muestra la posicion del usuario
 function getLocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
         console.log("Geolocation is supported by this browser.");
     } else {
         div.innerHTML = "Geolocation is not supported by this browser.";
     }
   }
 
+// muestra la posicion del usuario
 function showPosition(position) {
     latitud = document.getElementById("latitud");
     longitud = document.getElementById("longitud");
@@ -34,6 +35,25 @@ function showPosition(position) {
     
 }
 
+// muestra el error si no se puede obtener la posicion
+function showError(error) {
+    let div = document.getElementById("datosTiempo");
+    switch(error.code) {
+      case error.PERMISSION_DENIED:
+        div.innerHTML = "<h2 class='text-danger fw-bolder'>User denied the request for Geolocation.</h2>"
+        // console.log("User denied the request for Geolocation.")
+        break;
+      case error.POSITION_UNAVAILABLE:
+        div.innerHTML = "<h2 class='text-danger fw-bolder'>Location information is unavailable.</h2>"
+        break;
+      case error.TIMEOUT:
+        div.innerHTML = "<h2 class='text-danger fw-bolder'>The request to get user location timed out.</h2>"
+        break;
+      case error.UNKNOWN_ERROR:
+        div.innerHTML = "<h2 class='text-danger fw-bolder'>An unknown error occurred.</h2>"
+        break;
+    }
+} 
 
 // crar promesa para crear la url
 function crearUrl(latitud, longitud){
