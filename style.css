@@ -1,3 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
+
+body{
+    font-family: 'Barlow', sans-serif !important;
+}
+h1{
+    font-family: 'Kanit', sans-serif !important;
+    margin-top: 1em !important;
+}
 img{
     width: 60%;
+}
+#contenedor{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3em;
+}
+#Tiempo{
+    margin-top: 1.5em;
+}
+#datosTiempo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(83, 83, 83);
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 2px 2px 5px 5px rgb(27, 27, 27);
+    transition: 0.3s;
+}
+#datosTiempo:hover{
+    background-color: rgb(39, 39, 39);
+    transition: 0.3s;
+}
+#detallesTiempo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(83, 83, 83);
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 3px 3px 5px 2px rgb(27, 27, 27);
+    transition: 0.3s;
+}
+#detallesTiempo:hover{
+    background-color: rgb(39, 39, 39);
+    transition: 0.3s;
 }
