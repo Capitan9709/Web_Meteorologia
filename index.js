@@ -119,8 +119,8 @@ function trataRespuesta() {
             console.log(respuesta);
             console.log("Numero de peticiones: "+contador);
             // div.innerHTML = "<table  class='border rounded'><tr class='border'><th class='border'>Temperatura</th><th class='border'>Velocidad del viento</th><th class='border'>Direccion del viento</th></tr><tr class='border'><td class='border'>"+respuesta.current_weather.temperature+" ºC</td><td class='border'>"+respuesta.current_weather.windspeed+" Km/h</td><td class='border'>"+respuesta.current_weather.winddirection+"º/360º</td></tr></table>";
-            divDatos.innerHTML = "<h4>"+respuesta.elevation+" metros sobre el nivel del mar</h4><br>";
-            divDatos.innerHTML += "<h4><i class='fa-duotone fa-temperature-list'></i> "+respuesta.current_weather.temperature+" ºC</h4><br>";
+            divDetalles.innerHTML = "<h4><i class='fa-solid fa-arrows-up-down'></i> "+respuesta.elevation+" metros sobre el nivel del mar</h4><br>";
+            divDatos.innerHTML = "<h4><i class='fa-solid fa-temperature-empty'></i>"+respuesta.current_weather.temperature+" ºC</h4><br>";
             if (respuesta.current_weather.winddirection >= 331 && respuesta.current_weather.winddirection <= 29) {
                 direccionViento = "Norte";
             }
@@ -146,23 +146,23 @@ function trataRespuesta() {
                 direccionViento = "Noroeste";
             }
 
-            divDetalles.innerHTML = "<h4><i class='fa-solid fa-wind'></i> "+respuesta.current_weather.windspeed+" Km/h | Direccion: "+direccionViento+"</h4><br>";
+            divDetalles.innerHTML += "<h4><i class='fa-solid fa-wind'></i> "+respuesta.current_weather.windspeed+" Km/h | Direccion: "+direccionViento+"</h4><br>";
             // divDetalles.innerHTML += "<h4>Direccion del viento: "+respuesta.current_weather.winddirection+"º/360º</h4><br>";
             if (respuesta.current_weather.weathercode == 0) {
                 divDatos.innerHTML += "<img src='img/soleado.svg' alt='sol' class='img-fluid'>";
                 divDatos.innerHTML += "<h4>Despejado</h4>";
             }
             else if (respuesta.current_weather.weathercode == 1) {
-                divDatos.innerHTML += "<img src='img/nublado.svg' alt='nubes' class='img-fluid'>";
-                divDatos.innerHTML += "<h4>Nublado</h4>";
+                divDatos.innerHTML += "<img src='img/soleado.svg' alt='sol' class='img-fluid'>";
+                divDatos.innerHTML += "<h4>Mayormente Soleado</h4>";
             }
             else if (respuesta.current_weather.weathercode == 2) {
-                divDatos.innerHTML += "<img src='img/lluvia.png' alt='lluvia' class='img-fluid'>";
-                divDatos.innerHTML += "<h4>Lluvioso</h4>";
+                divDatos.innerHTML += "<img src='img/poconuboso.svg' alt='poconuboso' class='img-fluid'>";
+                divDatos.innerHTML += "<h4>Poco Nuboso</h4>";
             }
             else if (respuesta.current_weather.weathercode == 3) {
-                divDatos.innerHTML += "<img src='img/nieve.png' alt='nieve' class='img-fluid'>";
-                divDatos.innerHTML += "<h4>Nevado</h4>";
+                divDatos.innerHTML += "<img src='img/nublado.svg' alt='nubes' class='img-fluid'>";
+                divDatos.innerHTML += "<h4>Nublado</h4>";
             }
             else if (respuesta.current_weather.weathercode == 4) {
                 divDatos.innerHTML += "<img src='img/tormenta.png' alt='tormenta' class='img-fluid'>";
